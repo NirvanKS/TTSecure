@@ -4,32 +4,32 @@ package com.example.nirvansharma.ttsecure;
  * Created by Nirvan Sharma on 10/21/2017.
  */
 
-public class Data
-{
-    public String score;
-    public String url;
+public class Data {
+
+    private String Score;
+    private String URL;
+
+    public Data(String score, String URL) {
+        Score = score;
+        this.URL = URL;
+    }
 
     public Data() {
     }
 
-    public Data(String score, String url) {
-        this.score = score;
-        this.url = url;
-    }
-
     public String getScore() {
-        return score;
+        return Score;
     }
 
     public void setScore(String score) {
-        this.score = score;
+        Score = score;
     }
 
-    public String getUrl() {
-        return url;
+    public String getURL() {
+        return URL;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setURL(String URL) {
+        this.URL = URL;
     }
 }
