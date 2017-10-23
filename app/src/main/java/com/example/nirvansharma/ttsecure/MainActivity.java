@@ -238,8 +238,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void pushInstanceID(FirebaseInstanceId ID){
         String idString = ID.getId().toString();
+        Log.d(TAG,"Pushing id..,...");
         DatabaseReference idRef = database.getReference("RegIDs");
-        ref.push().setValue(idString);
+        idRef.push().setValue(idString);
     }
 
 
