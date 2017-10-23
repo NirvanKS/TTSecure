@@ -24,10 +24,18 @@
             </intent-filter>
         </service> //added service
 
+        <service android:name=".FirebaseInstanceIDService" android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
+            </intent-filter>
+        </service>
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" /> //changes colour of notification to red
-
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/cast_ic_expanded_controller_stop" />
     </application>
 
 </manifest>

@@ -26,6 +26,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
     // [START refresh_token]
     @Override
     public void onTokenRefresh() {
+
         // Get updated InstanceID token.
         String authorizedEntity = PROJECT_ID; // Project id from Google Developer Console
         String scope = "GCM"; // e.g. communicating using GCM, but you can use any
