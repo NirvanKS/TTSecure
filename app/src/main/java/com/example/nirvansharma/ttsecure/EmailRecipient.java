@@ -1,8 +1,6 @@
 package com.example.nirvansharma.ttsecure;
 
-/**
- * Created by Nirvan Sharma on 10/22/2017.
- */
+
 
 public class EmailRecipient {
     String emailAddress;

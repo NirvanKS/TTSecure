@@ -10,9 +10,6 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import java.io.IOException;
 
-/**
- * Created by Nirvan Sharma on 10/21/2017.
- */
 
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
     private static final String TAG = "FirebaseInstanceIDService";
@@ -23,16 +20,14 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
      * the previous token had been compromised. Note that this is called when the InstanceID token
      * is initially generated so this is where you would retrieve the token.
      */
-    // [START refresh_token]
+
     @Override
     public void onTokenRefresh() {
 
         // Get updated InstanceID token.
         String authorizedEntity = PROJECT_ID; // Project id from Google Developer Console
-        String scope = "GCM"; // e.g. communicating using GCM, but you can use any
-        // URL-safe characters up to a maximum of 1000, or
-        // you can also leave it blank.
-       // String token = InstanceID.getInstance(context).getToken(authorizedEntity,scope);
+        String scope = "GCM";
+
         String refreshedToken = null;
         try {
             refreshedToken = FirebaseInstanceId.getInstance(FirebaseApp.initializeApp(getApplicationContext())).getToken(authorizedEntity,scope);
@@ -41,13 +36,9 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
         }
         Log.d(TAG, "Refreshed token: " + refreshedToken);
 
-        // If you want to send messages to this application instance or
-        // manage this apps subscriptions on the server side, send the
-        // Instance ID token to your app server.
+
         sendRegistrationToServer(refreshedToken);
     }
-    // [END refresh_token]
-
     /**
      * Persist token to third-party servers.
      *
