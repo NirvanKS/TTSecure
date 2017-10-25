@@ -1,15 +1,8 @@
 package com.example.nirvansharma.ttsecure;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.media.RingtoneManager;
+
 import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import com.google.firebase.messaging.RemoteMessage;
-
-import java.util.Map;
 
 /**
  * Created by Nirvan Sharma on 10/20/2017.
@@ -26,21 +19,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     public void onMessageReceived(RemoteMessage remoteMessage) {
         String title = remoteMessage.getNotification().getTitle();
         String message = remoteMessage.getNotification().getBody();
-        String urlKey = null , urlValue = null ;
-        if(remoteMessage.getData().size() > 0){
 
-            for(Map.Entry<String,String> entry: remoteMessage.getData().entrySet()){
-                urlKey = entry.getKey();
-                urlValue = entry.getValue();
-            }
-        }
-        Log.d(TAG,"Url = " + urlKey);
-
-        Map<String,String> data = remoteMessage.getData();
-        String urlText = data.get("URL");
-        Log.d(TAG,"UrlText = " + urlText);
-        //Log.d(TAG, "onMessageReceived: Message Receive: \n" + "Title:" + title + "\n" + "Message: " + message);
-    }
+}
 
 
 
