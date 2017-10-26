@@ -1,6 +1,8 @@
 package com.example.nirvansharma.ttsecure;
 
         import android.content.Context;
+        import android.graphics.Color;
+        import android.support.v7.widget.Toolbar;
         import android.content.DialogInterface;
         import android.content.Intent;
         import android.net.Uri;
@@ -12,6 +14,9 @@ package com.example.nirvansharma.ttsecure;
         import android.util.Log;
         import android.view.Gravity;
         import android.view.View;
+        import android.view.animation.AlphaAnimation;
+        import android.view.animation.Animation;
+        import android.view.animation.LinearInterpolator;
         import android.widget.Button;
         import android.widget.EditText;
         import android.widget.ImageView;
@@ -37,7 +42,6 @@ package com.example.nirvansharma.ttsecure;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private ImageView image;
-
     Boolean optionSelected = false;                                                 //Used to track if the user selects an option
     final FirebaseDatabase database = FirebaseDatabase.getInstance();               //Firebase instance
     DatabaseReference ref = database.getReference("list");                          //Main child node
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d(TAG,"Instance ID : "+ FirebaseInstanceId.getInstance().getId());
+
 
         FirebaseMessaging.getInstance().subscribeToTopic("news");                   //subscribing to the notification topic when the app comes online on your phone.
         pushInstanceID(FirebaseInstanceId.getInstance());                           //store the instance ID for notifications later on.
@@ -62,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
                 .load(R.drawable.cast_ic_notification_connecting)
                 .into(image);
 
+        final Animation animation = new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
+        final Button btn = (Button) findViewById(R.id.btnAlarm);
 
         new CountDownTimer(11000,1000){
             TextView mTextField = findViewById(R.id.textViewCounter);
@@ -69,13 +75,25 @@ public class MainActivity extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
 
                mTextField.setText("Seconds remaining: " + millisUntilFinished / 1000);
+                //setting animation for warning button
+
+                animation.setDuration(900); // duration - half a second
+                animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+                animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
+                animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
+                btn.startAnimation(animation);
+                btn.setBackgroundColor(Color.RED);
             }
 
             @Override
             public void onFinish() {
                 mTextField.setText("done!");
+                btn.setVisibility(View.VISIBLE);
+                btn.setBackgroundColor(Color.WHITE);
+                animation.cancel();
                 if(!optionSelected){
-                    //can we send emails still?
+
+
                 }
             }
         }.start();
@@ -148,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 sendEmail(v,url,addressList);
                 optionSelected = true;
+                v.clearAnimation();
 
 
             }
