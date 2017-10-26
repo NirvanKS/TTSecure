@@ -70,11 +70,9 @@ public class MainActivity extends AppCompatActivity {
         final Button btn = (Button) findViewById(R.id.btnAlarm);
 
         new CountDownTimer(11000,1000){
-            TextView mTextField = findViewById(R.id.textViewCounter);
+
             @Override
             public void onTick(long millisUntilFinished) {
-
-               mTextField.setText("Seconds remaining: " + millisUntilFinished / 1000);
                 //setting animation for warning button
 
                 animation.setDuration(900); // duration - half a second
@@ -87,10 +85,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                mTextField.setText("done!");
+                animation.cancel();
                 btn.setVisibility(View.VISIBLE);
                 btn.setBackgroundColor(Color.WHITE);
-                animation.cancel();
+                btn.setText("Warn");
                 if(!optionSelected){
 
 
