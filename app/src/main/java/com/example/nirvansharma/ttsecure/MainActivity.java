@@ -66,35 +66,38 @@ public class MainActivity extends AppCompatActivity {
                 .load(R.drawable.cast_ic_notification_connecting)
                 .into(image);
 
+        //setting animation for warning button
         final Animation animation = new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
         final Button btn = (Button) findViewById(R.id.btnAlarm);
+        animation.setDuration(500); // duration - half a second
+        animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+        //animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
+        animation.setRepeatCount(20);
+        animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
+        btn.startAnimation(animation);
+        btn.setBackgroundColor(Color.RED);
 
-        new CountDownTimer(11000,1000){
+        animation.setAnimationListener(new Animation.AnimationListener(){
 
             @Override
-            public void onTick(long millisUntilFinished) {
-                //setting animation for warning button
+            public void onAnimationStart(Animation animation) {
 
-                animation.setDuration(900); // duration - half a second
-                animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
-                animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
-                animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
-                btn.startAnimation(animation);
-                btn.setBackgroundColor(Color.RED);
             }
 
             @Override
-            public void onFinish() {
-                animation.cancel();
+            public void onAnimationEnd(Animation animation) {
                 btn.setVisibility(View.VISIBLE);
                 btn.setBackgroundColor(Color.WHITE);
                 btn.setText("Warn");
-                if(!optionSelected){
-
-
-                }
             }
-        }.start();
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        
 
 
         //This query , using the reference of the list parent node , will return the last child node added in the list.
